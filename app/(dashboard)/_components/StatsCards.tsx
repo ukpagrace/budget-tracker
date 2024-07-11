@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { DateToUTCDate, GetFormattedForCurrency } from '@/lib/helpers';
 import { UserSettings } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
-import { TrendingUp } from 'lucide-react';
+import { TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import React, { ReactNode, useCallback, useMemo } from 'react';
 import CountUp from "react-countup";
 
@@ -17,10 +17,11 @@ interface Props {
 }
 
 function StatsCards({from, to, userSettings} : Props) {
+    console.log("logging here", DateToUTCDate(from), DateToUTCDate(to));
     const statsQuery = useQuery<GetBalanceStatsResponseType>({
         queryKey: ["overview", "stats", from, to],
-        queryFn: () => fetch(`/api/stats/balance?from${DateToUTCDate(from)}
-        &to=${DateToUTCDate(to)}}`)
+        queryFn: () => fetch(`/api/stats/balance?from=${DateToUTCDate(from)}
+        &to=${DateToUTCDate(to)}`)
         .then(res => res.json()),
     });
 
@@ -33,7 +34,7 @@ function StatsCards({from, to, userSettings} : Props) {
 
     const balance = income - expense
   return (
-    <div className="relative flex w-full flex-wrao gap-2 md:flex-nowrap">
+    <div className="relative flex w-full flex-wrap gap-2 md:flex-nowrap">
         <SkeletonWrapper isLoading={statsQuery.isFetching}>
             <StatCard
                 formatter={formatter}
@@ -45,6 +46,27 @@ function StatsCards({from, to, userSettings} : Props) {
             />
         </SkeletonWrapper>
 
+        <SkeletonWrapper isLoading={statsQuery.isFetching}>
+            <StatCard
+                formatter={formatter}
+                value={expense}
+                title="Expense"
+                icon={
+                    <TrendingDown className="h-12 w-12 items-center rounded-lg p-2 text-red-500 text-red-400/10 "/>
+                }
+            />
+        </SkeletonWrapper>
+
+        <SkeletonWrapper isLoading={statsQuery.isFetching}>
+            <StatCard
+                formatter={formatter}
+                value={balance}
+                title="Balance"
+                icon={
+                    <Wallet className="h-12 w-12 items-center rounded-lg p-2 text-violet-500 text-violet-400/10 "/>
+                }
+            />
+        </SkeletonWrapper>
     </div>
   )
 }
@@ -63,16 +85,17 @@ function StatCard({formatter, value, title, icon} : {
     return (
         <Card className="flex h-24 w-full items-center gap-2 p-4">
             {icon}
-            <p className="text-muted-foreground">{title}</p>
-            <CountUp 
-                preserveValue
-                redraw={false}
-                end={value}
-                decimals={2}
-                formattingFn={formatFn}
-                className="text-2xl"            
-            />
-
+            <div className="flex flex-col items-start gap-2 p-4">
+                <p className="text-muted-foreground">{title}</p>
+                <CountUp 
+                    preserveValue
+                    redraw={false}
+                    end={value}
+                    decimals={2}
+                    formattingFn={formatFn}
+                    className="text-2xl"            
+                />
+            </div>
         </Card>
     )
 }
