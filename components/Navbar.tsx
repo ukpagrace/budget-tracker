@@ -22,7 +22,7 @@ function Navbar() {
 const items = [
     {label: "Dashboard", link: "/"},
     {label: "Transactions", link: "/transactions"},
-    {label: "Manage", link: "/manager"}
+    {label: "Manage", link: "/manage"}
 ]
 
 function MobileNavbar(){

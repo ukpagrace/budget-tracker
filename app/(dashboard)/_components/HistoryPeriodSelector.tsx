@@ -42,7 +42,7 @@ const historyPeriods = useQuery<GetHistoryPeriodsResponseType>({
             </Tabs>
         </SkeletonWrapper>
         <div className="flex flex-wrap items-center gap-2">
-            <SkeletonWrapper isLoading={historyPeriods.isFetching}>
+            <SkeletonWrapper isLoading={historyPeriods.isFetching} fullWidth={false}>
                 <YearSelector 
                     period={period}
                     setPeriod={setPeriod}
