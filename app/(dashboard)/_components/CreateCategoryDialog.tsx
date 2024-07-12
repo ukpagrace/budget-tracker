@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { CreateCategorySchema, CreateCategorySchemaType } from '@/schema/categories';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CircleOff, Loader2, PlusSquare } from 'lucide-react';
-import React, {useCallback, useState} from 'react';
+import React, {ReactNode, useCallback, useState} from 'react';
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -21,9 +21,10 @@ import { useTheme } from 'next-themes';
 interface Props {
     type: TransactionType;
     successCallback: (category : Category) => void;
+    trigger?: ReactNode;
 }
 
-function CreateCategoryDialog({type, successCallback}: Props) {
+function CreateCategoryDialog({type, successCallback, trigger}: Props) {
 const [open, setOpen] = useState(false);
 const form = useForm<CreateCategorySchemaType>({
     resolver: zodResolver(CreateCategorySchema),
@@ -67,7 +68,7 @@ const onSubmit = useCallback((values : CreateCategorySchemaType) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-            <Button
+            {trigger ? trigger : <Button
                 variant={"ghost"} className="flex 
                 border-separate
                 items-center justify-start
@@ -77,7 +78,7 @@ const onSubmit = useCallback((values : CreateCategorySchemaType) => {
             >
                 <PlusSquare  className="mr-2 h-4 w-4"/>
                 Create New
-            </Button>
+            </Button> }
         </DialogTrigger>
         <DialogContent>
             <DialogHeader>
