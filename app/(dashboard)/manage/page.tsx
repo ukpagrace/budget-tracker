@@ -26,27 +26,25 @@ function page() {
                 </div>
             </div>
         </div>
-
-        <section>
-            <div className="container flex flex-col gap-4 p-4">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Currency</CardTitle>
-                    <CardDescription>Set your default currency for transaction</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <CurrencyComboBox/>
-                </CardContent>
-            </Card>
-            <CategoryList type="income"/>
-            <CategoryList type="expense"/>
-            </div>
-        </section>
+        <div className="container flex flex-col gap-4 p-4">
+        <Card>
+            <CardHeader>
+                <CardTitle>Currency</CardTitle>
+                <CardDescription>Set your default currency for transaction</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <CurrencyComboBox/>
+            </CardContent>
+        </Card>
+        <CategoryList type="income"/>
+        <CategoryList type="expense"/>
+        </div>
     </>
   )
 }
 
-export default page
+export default page;
+
 function CategoryList({type}: {type: TransactionType}){
     const categoryQuery = useQuery({
         queryKey: ["categories", type],
@@ -56,7 +54,7 @@ function CategoryList({type}: {type: TransactionType}){
 
 
     return(
-        <SkeletonWrapper isLoading={categoryQuery.isFetching}>
+        <SkeletonWrapper isLoading={categoryQuery.isLoading}>
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center justify-between gap-2">
@@ -144,7 +142,6 @@ function CategoryCard({category} : {category: Category}){
                     Remove
                 </Button>
             }/>
-
         </div>
     )
 }

@@ -4,9 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { ReactNode } from 'react';
 import { DeleteCategory } from '../_actions/categories';
 import { toast } from 'sonner';
-import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { AlertTitle } from '@/components/ui/alert';
-import { AlertDialogAction } from '@radix-ui/react-alert-dialog';
 import { TransactionType } from '@/lib/types';
 
 interface Props {
@@ -36,7 +35,7 @@ const deleteMutation = useMutation({
 });
   return (
     <AlertDialog>
-        <AlertDialogTrigger asChild>
+        <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertTitle>
@@ -46,9 +45,7 @@ const deleteMutation = useMutation({
                         This action cannot be undone. This will be permanently delete your category
                     </AlertDialogDescription>
                 </AlertDialogHeader>
-            </AlertDialogContent>
-
-            <AlertDialogFooter>
+                <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction onClick={() => {
                         toast.loading("Deleting category...", {
@@ -58,10 +55,12 @@ const deleteMutation = useMutation({
                             name: category.name,
                             type: category.type as TransactionType
                         })
-                    }}>Confirm</AlertDialogAction>
-            </AlertDialogFooter>
+                    }}>Confirm
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
 
-        </AlertDialogTrigger>
+
     </AlertDialog>
   )
 }
