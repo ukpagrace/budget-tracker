@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 import CreateTransactionsDialog from './_components/CreateTransactionsDialog';
 import Overview from './_components/Overview';
+import History from './_components/History';
 
 async function page() {
     const user = await currentUser();
@@ -39,9 +40,6 @@ async function page() {
                             New income
                         </Button>
                     } type="income"/>
-                </div>
-
-                <div className="flex items-center gap-3">
                     <CreateTransactionsDialog trigger={
                         <Button variant={"outline"}
                         className="border-rose-50 
@@ -51,11 +49,11 @@ async function page() {
                             New expense
                         </Button>
                     } type="expense"/>
-
                 </div>
             </div>
         </div>
         <Overview userSettings={userSettings}/>
+        <History userSettings={userSettings}/>
     </div>
   )
 }
