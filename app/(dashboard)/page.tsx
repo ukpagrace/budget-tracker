@@ -7,7 +7,7 @@ import CreateTransactionsDialog from './_components/CreateTransactionsDialog';
 import Overview from './_components/Overview';
 import History from './_components/History';
 
-async function page() {
+async function Page() {
     const user = await currentUser();
     if(!user){
         redirect("/sign-in");
@@ -58,4 +58,4 @@ async function page() {
   )
 }
 
-export default page
+export default Page

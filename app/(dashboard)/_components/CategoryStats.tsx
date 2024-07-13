@@ -25,8 +25,6 @@ const statsQuery = useQuery<GetCategoriesStatsResponseType>({
     ).then(res => res.json()),
 });
 
-console.log(statsQuery.data || [])
-
 const formatter = useMemo(() => {
     return GetFormattedForCurrency(userSettings.currency)
 }, [userSettings.currency])
