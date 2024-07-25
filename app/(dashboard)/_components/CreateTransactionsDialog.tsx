@@ -62,7 +62,7 @@ const {mutate, isPending} = useMutation({
     },
 });
 
-const onSubmit = useCallback((values : CreateTransactionSchemaType) => {
+const onSubmit = (values : CreateTransactionSchemaType) => {
     toast.loading("Creating transaction...", 
         {id : "create-transaction"}
     )
@@ -70,7 +70,7 @@ const onSubmit = useCallback((values : CreateTransactionSchemaType) => {
         ...values,
         date: DateToUTCDate(values.date)
     })
-}, []);
+};
   return (
     <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
