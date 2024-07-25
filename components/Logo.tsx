@@ -11,7 +11,7 @@ function Logo() {
                 font-bold leading-tight
                 tracking-tighter
                 text-transparent">
-            ExpenseTracker
+            MIMO
         </p>
 
     </a>
@@ -27,7 +27,7 @@ export function MobileLogo() {
                   font-bold leading-tight
                   tracking-tighter
                   text-transparent">
-              MImo
+              MIMO
           </p>
   
       </a>
